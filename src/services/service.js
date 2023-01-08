@@ -1,8 +1,9 @@
 import { db } from '../config.js';
 
-export const create = async (name) => {
+export const create = async (userId, name) => {
   const r = await db.put({
     type: 'service',
+    user_id: userId,
     name,
   });
   return r;
@@ -30,7 +31,10 @@ export const getChildren = async (id) => {
 
 export const getById = async (id) => {
   const r = await db.get(id);
-  if (r.type && r.type !== 'service') return;
+  if (
+    !r
+    || (r.type && r.type !== 'service')
+  ) return;
   const children = await getChildren(r.key);
   return {
     name: r.name,

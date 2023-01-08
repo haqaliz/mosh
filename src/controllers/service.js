@@ -2,7 +2,7 @@ import { service, folder, request } from '../services/index.js';
 
 export const create = async (req, res) => {
   if (!req.body.name) res.sendStatus(400);
-  const r = await service.create(req.body.name);
+  const r = await service.create(req.user.key, req.body.name);
   if (!r) res.sendStatus(400);
   res.status(201).json(r);
 };
