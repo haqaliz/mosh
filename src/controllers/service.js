@@ -19,6 +19,7 @@ export const createFolder = async (req, res) => {
     req.body.name,
     parentId,
   );
+  if (!r) res.sendStatus(400);
   res.status(201).json(r);
 };
 
@@ -36,6 +37,7 @@ export const createRequest = async (req, res) => {
         authorization: req.body.authorization,
       },
     )
+    if (!r) res.sendStatus(400);
     res.status(201).json(r);
 };
 
