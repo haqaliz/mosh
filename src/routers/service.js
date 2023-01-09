@@ -1,8 +1,5 @@
-import express from 'express';
-import {
-  service as serviceController,
-} from '../controllers/index.js';
-
+const express = require('express');
+const controllers = require('../controllers/index.js');
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -10,12 +7,12 @@ router.use((req, res, next) => {
   next();
 });
 
-router.post('/', serviceController.create);
+router.post('/', controllers.service.create);
 
-router.get('/:id', serviceController.getById);
+router.get('/:id', controllers.service.getById);
 
-router.post('/:id/folder', serviceController.createFolder);
+router.post('/:id/folder', controllers.service.createFolder);
 
-router.post('/:id/request', serviceController.createRequest);
+router.post('/:id/request', controllers.service.createRequest);
 
-export default router;
+module.exports = router;

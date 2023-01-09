@@ -1,5 +1,5 @@
-import { db } from '../config.js';
-import crypto from 'crypto';
+const { db } = require('../config.js');
+const crypto = require('crypto');
 
 const encrypt = (password, salt) => {
   return new Promise((resolve, reject) => {
@@ -10,7 +10,7 @@ const encrypt = (password, salt) => {
   });
 };
 
-export const create = async (email, password, name) => {
+const create = async (email, password, name) => {
   const salt = crypto.randomBytes(16).toString('hex');
   const r = await db.put({
     type: 'user',
@@ -22,13 +22,13 @@ export const create = async (email, password, name) => {
   return r;
 };
 
-export const getById = async (id) => {
+const getById = async (id) => {
   const r = await db.get(id);
   if (!r || (r.type && r.type !== 'user')) return;
   return r;
 };
 
-export const getByEmailAndPassword = async (email, password) => {
+const getByEmailAndPassword = async (email, password) => {
   const r = await db.fetch({
     type: 'user',
     email,
@@ -43,7 +43,7 @@ export const getByEmailAndPassword = async (email, password) => {
   return user;
 };
 
-export default {
+module.exports = {
   create,
   getById,
   getByEmailAndPassword,

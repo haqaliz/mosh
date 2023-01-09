@@ -1,2 +1,7 @@
-export { default as auth } from './auth.js';
-export { default as service } from './service.js';
+const auth = require('./auth.js');
+const service = require('./service.js');
+
+module.exports = {
+    auth,
+    service,
+};

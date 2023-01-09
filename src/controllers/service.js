@@ -1,21 +1,21 @@
-import { service, folder, request } from '../services/index.js';
+const services = require('../services/index.js');
 
-export const create = async (req, res) => {
+const create = async (req, res) => {
   if (!req.body.name) res.sendStatus(400);
-  const r = await service.create(req.user.key, req.body.name);
+  const r = await services.service.create(req.user.key, req.body.name);
   if (!r) res.sendStatus(400);
   res.status(201).json(r);
 };
 
-export const getById = async (req, res) => {
-  const r = await service.getById(req.params.id);
+const getById = async (req, res) => {
+  const r = await services.service.getById(req.params.id);
   if (!r) res.sendStatus(404);
   res.status(201).json(r);
 };
 
-export const createFolder = async (req, res) => {
+const createFolder = async (req, res) => {
   const parentId = req.body.parent_id || req.params.id;
-  const r = await folder.create(
+  const r = await services.folder.create(
     req.body.name,
     parentId,
   );
@@ -23,9 +23,9 @@ export const createFolder = async (req, res) => {
   res.status(201).json(r);
 };
 
-export const createRequest = async (req, res) => {
+const createRequest = async (req, res) => {
     const parentId = req.body.parent_id || req.params.id;
-    const r = await request.create(
+    const r = await services.request.create(
       req.body.name,
       parentId,
       {
@@ -41,7 +41,7 @@ export const createRequest = async (req, res) => {
     res.status(201).json(r);
 };
 
-export default {
+module.exports = {
   create,
   getById,
   createFolder,

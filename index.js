@@ -1,12 +1,11 @@
-import express from 'express';
-import passport from 'passport';
-import session from 'express-session';
-import memoryStore from 'memorystore';
-import { auth, service } from './src/routers/index.js';
+const express = require('express');
+const passport = require('passport');
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
+const routers = require('./src/routers/index.js');
 
 const DEV = process.env.NODE_ENV === 'development';
 const app = express();
-const MemoryStore = memoryStore(session);
 
 // parse body
 app.use(express.json())
@@ -21,8 +20,8 @@ app.use(session({
   secret: 'keyboard cat'
 }));
 app.use(passport.authenticate('session'));
-app.use('/service', service);
-app.use('/auth', auth);
+app.use('/service', routers.service);
+app.use('/auth', routers.auth);
 
 if (DEV) {
   const PORT = 8080;

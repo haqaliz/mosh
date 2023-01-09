@@ -1,6 +1,6 @@
-import { db } from '../config.js';
+const { db } = require('../config.js');
 
-export const create = async (name, parentId, request) => {
+const create = async (name, parentId, request) => {
   const r = await db.put({
     type: 'request',
     name,
@@ -10,7 +10,7 @@ export const create = async (name, parentId, request) => {
   return r;
 };
 
-export default {
+module.exports = {
   create,
 };
 

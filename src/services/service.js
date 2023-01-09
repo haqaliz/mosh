@@ -1,6 +1,6 @@
-import { db } from '../config.js';
+const { db } = require('../config.js');
 
-export const create = async (userId, name) => {
+const create = async (userId, name) => {
   const r = await db.put({
     type: 'service',
     user_id: userId,
@@ -9,7 +9,7 @@ export const create = async (userId, name) => {
   return r;
 };
 
-export const getChildren = async (id) => {
+const getChildren = async (id) => {
   const where = {
     parent_id: id,
   };
@@ -29,7 +29,7 @@ export const getChildren = async (id) => {
   }));
 };
 
-export const getById = async (id) => {
+const getById = async (id) => {
   const r = await db.get(id);
   if (
     !r
@@ -42,7 +42,7 @@ export const getById = async (id) => {
   };
 };
 
-export default {
+module.exports = {
   create,
   getById,
   getChildren,
