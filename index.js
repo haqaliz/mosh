@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
 import memoryStore from 'memorystore';
-import { auth, service } from './routers/index.js';
+import { auth, service } from './src/routers/index.js';
 
 const DEV = process.env.NODE_ENV === 'development';
 const app = express();

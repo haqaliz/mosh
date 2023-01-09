@@ -2,9 +2,9 @@
   "name": "mosh",
   "version": "0.0.1",
   "private": true,
-  "main": "./src/index.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon ./src/index.js"
+    "dev": "NODE_ENV=development nodemon ./index.js"
   },
   "dependencies": {
     "deta": "^1.1.0",
