@@ -20,8 +20,9 @@ app.use(session({
   secret: 'keyboard cat'
 }));
 app.use(passport.authenticate('session'));
-app.use('/service', routers.service);
 app.use('/auth', routers.auth);
+app.use('/service', routers.service);
+app.use('/user', routers.user);
 
 if (DEV) {
   const PORT = 8080;
