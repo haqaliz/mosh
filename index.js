@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
@@ -9,6 +10,7 @@ const app = express();
 
 // parse body
 app.use(express.json())
+app.use(cors());
 app.use(session({
   cookie: { maxAge: 864e5 },
   store: new MemoryStore({
@@ -25,7 +27,7 @@ app.use('/service', routers.service);
 app.use('/user', routers.user);
 
 if (DEV) {
-  const PORT = 8080;
+  const PORT = 8081;
   app.listen(PORT, () => {
     console.log(`Mosh is listening on port ${PORT}`);
   });
