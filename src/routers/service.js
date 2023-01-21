@@ -7,12 +7,14 @@ router.use((req, res, next) => {
   next();
 });
 
-router.post('/', controllers.service.create);
+router.post('/', controllers.service.createService);
 
-router.get('/:id', controllers.service.getById);
+router.get('/:id', controllers.service.getServiceById);
 
 router.post('/:id/folder', controllers.service.createFolder);
 
 router.post('/:id/request', controllers.service.createRequest);
+
+router.get('/:id/request/:request_id', controllers.service.getRequestById);
 
 module.exports = router;

@@ -1,13 +1,13 @@
 const services = require('../services/index.js');
 
-const create = async (req, res) => {
+const createService = async (req, res) => {
   if (!req.body.name) res.sendStatus(400);
   const r = await services.service.create(req.user.key, req.body.name);
   if (!r) res.sendStatus(400);
   res.status(201).json(r);
 };
 
-const getById = async (req, res) => {
+const getServiceById = async (req, res) => {
   const r = await services.service.getById(req.params.id);
   if (!r) res.sendStatus(404);
   res.status(201).json(r);
@@ -41,9 +41,16 @@ const createRequest = async (req, res) => {
     res.status(201).json(r);
 };
 
+const getRequestById = async (req, res) => {
+  const r = await services.request.getById(req.params.request_id);
+  if (!r) res.sendStatus(404);
+  res.status(201).json(r);
+};
+
 module.exports = {
-  create,
-  getById,
+  createService,
+  getServiceById,
   createFolder,
   createRequest,
+  getRequestById,
 };

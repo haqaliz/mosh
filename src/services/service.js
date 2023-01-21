@@ -9,6 +9,16 @@ const create = async (userId, name) => {
   return r;
 };
 
+const formatChildren = (children) => {
+  return children.map((i) => ({
+    id: i.key,
+    name: i.name,
+    parent_id: i.parent_id,
+    type: i.type,
+    request: i.request,
+  }));
+};
+
 const getChildren = async (id) => {
   const where = {
     parent_id: id,
@@ -24,7 +34,7 @@ const getChildren = async (id) => {
     const children = await getChildren(i.key);
     return {
       ...i,
-      children,
+      children: formatChildren(children),
     };
   }));
 };
@@ -38,12 +48,23 @@ const getById = async (id) => {
   const children = await getChildren(r.key);
   return {
     name: r.name,
-    children,
+    children: formatChildren(children),
   };
+};
+
+const getAllServicesByUserId = async (userId) => {
+  const r = await db.fetch({
+    type: 'service',
+    user_id: userId,
+  });
+  if (!r || !r?.items?.length) return [];
+  const user = r.items[0];
+  return await Promise.all(r.items.map((i) => getById(i.key)));
 };
 
 module.exports = {
   create,
   getById,
   getChildren,
+  getAllServicesByUserId,
 };
