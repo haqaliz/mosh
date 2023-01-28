@@ -10,13 +10,15 @@ const create = async (userId, name) => {
 };
 
 const formatChildren = (children) => {
-  return children.map((i) => ({
-    id: i.key,
-    name: i.name,
-    parent_id: i.parent_id,
-    type: i.type,
-    request: i.request,
-  }));
+  return children
+    .filter((i) => ['request', 'folder'].includes(i.type.toLowerCase()))
+    .map((i) => ({
+      id: i.key,
+      name: i.name,
+      parent_id: i.parent_id,
+      type: i.type,
+      request: i.request,
+    }));
 };
 
 const getChildren = async (id) => {
