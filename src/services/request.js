@@ -1,9 +1,10 @@
 const { db } = require('../config.js');
 
-const create = async (name, parentId, request) => {
+const create = async (name, serviceId, parentId, request) => {
   const r = await db.put({
     type: 'request',
     name,
+    service_id: serviceId,
     parent_id: parentId,
     request,
   });

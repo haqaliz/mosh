@@ -27,11 +27,13 @@ const createRequest = async (req, res) => {
     const parentId = req.body.parent_id || req.params.id;
     const r = await services.request.create(
       req.body.name,
+      req.params.id,
       parentId,
       {
         type: req.body.type,
         url: req.body.url,
-        body: req.body.body,
+        body: JSON.stringify(req.body.body),
+        response: JSON.stringify(req.body.response),
         headers: req.body.headers,
         params: req.body.params,
         authorization: req.body.authorization,
